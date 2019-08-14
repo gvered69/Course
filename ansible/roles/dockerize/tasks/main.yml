@@ -1,0 +1,13 @@
+---
+# tasks file for dockerize
+- name: Run container to check dockerize
+  docker_container:
+    image: "{{ docker_hub_repo }}:{{ image_name }}"
+    name: "{{ image_name }}"
+    recreate: yes
+    state: started
+- name: Check running of module in remote container
+  shell: "echo $?"
+  register: result
+  failed_when: result.rc != 0
+
